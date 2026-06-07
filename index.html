@@ -8,13 +8,16 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script type="module" src="main.js" defer></script>
 </head>
 <body>
@@ -34,7 +37,7 @@
       <div class="nav-links desktop-nav">
         <a href="#platform" class="nav-link">Platform</a>
         <a href="#modules" class="nav-link">Modules</a>
-        <a href="#waitlist" class="btn-primary-pill nav-cta">Get Early Access</a>
+        <a href="#" class="btn-primary-pill nav-cta">Get Started</a>
       </div>
       <button class="mobile-menu-btn" aria-label="Toggle Navigation">
         <span></span>
@@ -48,7 +51,7 @@
   <div class="mobile-menu-panel">
     <a href="#platform" class="nav-link">Platform</a>
     <a href="#modules" class="nav-link">Modules</a>
-    <a href="#waitlist" class="btn-primary-pill nav-cta">Get Early Access</a>
+    <a href="#" class="btn-primary-pill nav-cta">Get Started</a>
   </div>
 
   <main>
@@ -74,12 +77,11 @@
       </div>
 
       <div class="hero-content">
-        <div class="eyebrow-pill hero-text-anim">Coming Soon</div>
         <h1 class="hero-headline">
           <span class="word hero-text-anim">The</span> <span class="word hero-text-anim">Marketing</span> <span class="word hero-text-anim">Intelligence</span> <span class="word hero-text-anim">Suite</span>
         </h1>
         <p class="hero-sub hero-text-anim">The future of enterprise marketing operations is here.<br>Experience a truly connected system.</p>
-        <a href="#waitlist" class="btn-primary-pill hero-cta hero-text-anim">Join the Waitlist</a>
+        <a href="#" class="btn-primary-pill hero-cta hero-text-anim">Get Started</a>
       </div>
       
       <div class="scroll-indicator hero-text-anim">
@@ -89,17 +91,45 @@
       </div>
     </section>
 
-    <!-- Philosophy Section -->
-    <section id="platform" class="section-philosophy bg-offwhite">
-      <div class="philosophy-content">
-        <h2 class="philo-headline fade-up">Eliminate the Fragmentation</h2>
-        <p class="philo-sub fade-up delay-1">Stop using five disconnected tools. Experience a continuous marketing loop.</p>
-        <h3 class="philo-tag fade-up delay-2">The Pulse360 Ecosystem</h3>
+    <!-- Trusted Brands Marquee -->
+    <section class="section-brands">
+      <div class="brands-eyebrow">TRUSTED BY FORWARD-THINKING TEAMS</div>
+      <div class="brands-marquee-container">
+        <div class="brands-marquee">
+          <!-- Duplicate brands for infinite scroll -->
+          <div class="brand-item"><img src="assets/eicher.png" alt="Eicher"></div>
+          <div class="brand-item">Ashok Leyland</div>
+          <div class="brand-item"><img src="assets/radico.png" alt="Radico Khaitan"></div>
+          <div class="brand-item"><img src="assets/lpu.png" alt="Lovely Professional University"></div>
+          <div class="brand-item"><img src="assets/muthoot.png" alt="Muthoot Finance"></div>
+          <div class="brand-item"><img src="assets/maruti.png" alt="Maruti Suzuki"></div>
+          <!-- Duplicates -->
+          <div class="brand-item" aria-hidden="true"><img src="assets/eicher.png" alt="Eicher"></div>
+          <div class="brand-item" aria-hidden="true">Ashok Leyland</div>
+          <div class="brand-item" aria-hidden="true"><img src="assets/radico.png" alt="Radico Khaitan"></div>
+          <div class="brand-item" aria-hidden="true"><img src="assets/lpu.png" alt="Lovely Professional University"></div>
+          <div class="brand-item" aria-hidden="true"><img src="assets/muthoot.png" alt="Muthoot Finance"></div>
+          <div class="brand-item" aria-hidden="true"><img src="assets/maruti.png" alt="Maruti Suzuki"></div>
+        </div>
       </div>
-      <div class="particle-sphere-container fade-up delay-3">
-        <!-- Canvas injected here -->
-        <canvas id="sphere-canvas"></canvas>
-      </div>
+    </section>
+
+    <!-- Ecosystem Section -->
+    <section id="platform" class="ecosystem-section">
+        <div class="heading fade-up">
+            <h1>
+                Eliminate the<br>
+                Fragmentation
+            </h1>
+            <p>
+                Stop using five disconnected tools.
+                Experience a continuous marketing loop.
+            </p>
+        </div>
+        <canvas id="ecosystem-canvas"></canvas>
+        <div class="ecosystem-title">
+            The Pulse360 Ecosystem
+        </div>
     </section>
 
     <!-- Modules Anchor Section -->
@@ -405,25 +435,138 @@
       </div>
     </section>
 
-    <!-- Waitlist / CTA Section -->
-    <section id="waitlist" class="section-waitlist">
+    <!-- Case Studies Section -->
+    <section class="section-cases">
+      <div class="cases-header fade-up">
+        <div class="eyebrow-text">CASE STUDIES</div>
+        <h2 class="cases-headline">Proven Impact</h2>
+      </div>
+      <div class="cases-grid">
+        <div class="case-card fade-up delay-1">
+          <div class="case-metric">300%</div>
+          <h3 class="case-title">Increase in Engagement</h3>
+          <p class="case-desc">How a leading automotive brand streamlined their fragmented channels into a single powerful narrative.</p>
+          <a href="#" class="case-link">Read Story &rarr;</a>
+        </div>
+        <div class="case-card fade-up delay-2">
+          <div class="case-metric">12x</div>
+          <h3 class="case-title">Faster Campaign Launches</h3>
+          <p class="case-desc">Using PulsePlan and Brand Book to eliminate bottlenecks and accelerate go-to-market speed.</p>
+          <a href="#" class="case-link">Read Story &rarr;</a>
+        </div>
+        <div class="case-card fade-up delay-3">
+          <div class="case-metric">Zero</div>
+          <h3 class="case-title">Compliance Issues</h3>
+          <p class="case-desc">Achieving 100% brand consistency globally with real-time guardrails and scoring.</p>
+          <a href="#" class="case-link">Read Story &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Behind Section -->
+    <section class="section-team">
+      <div class="team-header fade-up">
+        <div class="eyebrow-text">THE PEOPLE</div>
+        <h2 class="team-headline">Meet the Team Behind Pulse360</h2>
+      </div>
+      <div class="team-grid">
+        <div class="team-card fade-up delay-1">
+          <div class="team-photo"><img src="assets/team_ceo.png" alt="CEO"></div>
+          <h3 class="team-name">Alex Rivera</h3>
+          <p class="team-role">CEO / Managing Partner</p>
+        </div>
+        <div class="team-card fade-up delay-2">
+          <div class="team-photo"><img src="assets/team_lead.png" alt="Team Lead"></div>
+          <h3 class="team-name">Jordan Lee</h3>
+          <p class="team-role">Team Lead</p>
+        </div>
+        <div class="team-card fade-up delay-3">
+          <div class="team-photo"><img src="assets/team_po.png" alt="Product Owner"></div>
+          <h3 class="team-name">Sam Taylor</h3>
+          <p class="team-role">Product Owner</p>
+        </div>
+        <div class="team-card fade-up delay-4">
+          <div class="team-photo"><img src="assets/team_member.png" alt="Core Team"></div>
+          <h3 class="team-name">Casey Smith</h3>
+          <p class="team-role">Core Team Member</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Demo Section -->
+    <section class="section-contact" id="contact-sales">
       <div class="blob-peach-tr"></div>
       <div class="blob-lavender-bl"></div>
       
-      <div class="waitlist-content fade-up">
-        <div class="eyebrow-text">EARLY ACCESS</div>
-        <h2 class="waitlist-headline">Ready to transform your operations?</h2>
-        <p class="waitlist-sub">We are launching soon. Secure your spot to be among the first to experience the unified suite.</p>
-        
-        <form id="waitlist-form" class="waitlist-form fade-up delay-1">
-          <input type="email" class="email-input" placeholder="Enter your email" required aria-label="Email Address">
-          <button type="submit" class="btn-primary-pill">Request Access &rarr;</button>
-        </form>
-        <div id="waitlist-success" class="waitlist-success hidden">
-          <span class="success-icon">✓</span> You're on the list! We'll be in touch soon.
+      <div class="contact-container fade-up">
+        <div class="contact-header">
+          <h2 class="contact-headline">Ready to transform your operations?</h2>
+          <p class="contact-sub">Customize your suite or book a demo with our experts.</p>
         </div>
         
-        <p class="social-proof fade-up delay-2">Join 500+ marketing leaders already on the waitlist.</p>
+        <form class="contact-form" id="sales-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required placeholder="Jane Doe">
+            </div>
+            
+            <div class="form-group">
+              <label for="company">Company Name</label>
+              <input type="text" id="company" name="company" required placeholder="Acme Corp">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Company Email</label>
+            <input type="email" id="email" name="email" required placeholder="jane@acmecorp.com">
+          </div>
+
+          <div class="form-group">
+            <label>Select Products</label>
+            <div class="custom-multi-select" id="product-select">
+              <div class="select-box">
+                <div class="selected-pills" id="selected-pills">
+                  <span class="placeholder">Choose modules...</span>
+                </div>
+                <div class="arrow">
+                  <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+              </div>
+              <div class="select-dropdown">
+                <label class="dropdown-item"><input type="checkbox" value="Brand Book"> <span>Brand Book</span></label>
+                <label class="dropdown-item"><input type="checkbox" value="PulsePlan"> <span>PulsePlan</span></label>
+                <label class="dropdown-item"><input type="checkbox" value="PulseScout"> <span>PulseScout</span></label>
+                <label class="dropdown-item"><input type="checkbox" value="PulseEngage"> <span>PulseEngage</span></label>
+                <label class="dropdown-item"><input type="checkbox" value="PulseShift"> <span>PulseShift</span></label>
+                <label class="dropdown-item"><input type="checkbox" value="Whole Suite"> <span>The Whole Suite</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="note">Note (Describe your problem)</label>
+            <textarea id="note" name="note" rows="4" placeholder="Tell us about your current bottlenecks..."></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary-pill submit-btn">Submit Inquiry</button>
+            <button type="button" class="btn-secondary-pill" id="book-demo-btn">Book a Demo Session</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Demo Modal (Hidden by default) -->
+      <div class="demo-modal-overlay" id="demo-modal">
+        <div class="demo-modal-content">
+          <button class="close-modal" id="close-demo">&times;</button>
+          <h3 class="modal-title">Book a Demo</h3>
+          <p class="modal-sub">Select a date and time that works for you.</p>
+          <div class="calendar-container">
+            <input type="text" id="datetime-picker" placeholder="Select Date & Time">
+          </div>
+          <button class="btn-primary-pill" id="confirm-booking-btn" style="width: 100%; margin-top: 24px;">Confirm Booking</button>
+        </div>
       </div>
     </section>
   </main>

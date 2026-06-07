@@ -6,10 +6,23 @@ document.addEventListener('DOMContentLoaded', () => {
   initLenis();
   initCustomCursor();
   initMobileMenu();
+  
+  // Initialize in DOM order to prevent ScrollTrigger overlaps
+  // 1. Hero (inside initScrollAnimations)
+  // 2. Ecosystem (initParticleSphere)
+  // 3. Modules (inside initScrollAnimations)
+  // We will let them initialize, then force a refresh and sort.
   initScrollAnimations();
   initParticleSphere();
-  initWaitlistForm();
+  
+  initContactForm();
   initGrainEffect();
+
+  // Force ScrollTrigger to sort based on DOM order and recalculate all pin spacers
+  if (typeof ScrollTrigger !== 'undefined') {
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh();
+  }
 });
 
 function initLenis() {
@@ -241,155 +254,283 @@ function initScrollAnimations() {
 }
 
 function initParticleSphere() {
-  const canvas = document.getElementById('sphere-canvas');
-  if (!canvas || !window.THREE) return;
-  
-  const container = canvas.parentElement;
-  
+  const canvas = document.getElementById("ecosystem-canvas");
+  if(!canvas) return;
+
   const scene = new THREE.Scene();
-  
-  // Setup Camera
-  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 1, 1000);
-  camera.position.z = 400;
-  
-  // Setup Renderer
-  const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  
-  // Create Particles
-  const particleCount = 600;
-  const geometry = new THREE.BufferGeometry();
-  const positions = new Float32Array(particleCount * 3);
-  const colors = new Float32Array(particleCount * 3);
-  const sizes = new Float32Array(particleCount);
-  
-  const colorOrange = new THREE.Color('#F97316');
-  const radius = 160;
-  
-  for (let i = 0; i < particleCount; i++) {
-    // Random point on sphere
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos((Math.random() * 2) - 1);
-    
-    const x = radius * Math.sin(phi) * Math.cos(theta);
-    const y = radius * Math.sin(phi) * Math.sin(theta);
-    const z = radius * Math.cos(phi);
-    
-    positions[i * 3] = x;
-    positions[i * 3 + 1] = y;
-    positions[i * 3 + 2] = z;
-    
-    colorOrange.toArray(colors, i * 3);
-    
-    // Base size
-    sizes[i] = Math.random() * 2 + 1;
-  }
-  
-  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-  geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-  
-  // Custom shader for opacity based on Z depth
-  const vertexShader = `
-    attribute float size;
-    attribute vec3 color;
-    varying vec3 vColor;
-    varying float vOpacity;
-    void main() {
-      vColor = color;
-      vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-      gl_PointSize = size * (300.0 / -mvPosition.z);
-      gl_Position = projectionMatrix * mvPosition;
-      
-      // Calculate opacity based on z position (far is transparent)
-      vOpacity = smoothstep(-150.0, 150.0, position.z) * 0.7 + 0.3;
-    }
-  `;
-  
-  const fragmentShader = `
-    varying vec3 vColor;
-    varying float vOpacity;
-    void main() {
-      // Circular particle
-      float r = distance(gl_PointCoord, vec2(0.5, 0.5));
-      if(r > 0.5) discard;
-      
-      // Soft edge
-      float alpha = (0.5 - r) * 2.0;
-      gl_FragColor = vec4(vColor, alpha * vOpacity);
-    }
-  `;
-  
-  const material = new THREE.ShaderMaterial({
-    vertexShader,
-    fragmentShader,
-    transparent: true,
-    depthWrite: false
+
+  const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+  );
+
+  camera.position.z = 250;
+
+  const renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha:true,
+      antialias:true
   });
-  
+
+  renderer.setSize(
+      window.innerWidth,
+      window.innerHeight
+  );
+
+  renderer.setPixelRatio(
+      Math.min(window.devicePixelRatio,2)
+  );
+
+  window.addEventListener("resize",()=>{
+      camera.aspect= window.innerWidth/ window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  const particleCount = 5000;
+  const fragmentedPositions = new Float32Array(particleCount*3);
+  const unifiedPositions = new Float32Array(particleCount*3);
+  const currentPositions = new Float32Array(particleCount*3);
+
+  function spherePoint(radius, offsetX=0, offsetY=0, offsetZ=0) {
+      const u=Math.random();
+      const v=Math.random();
+      const theta= u*Math.PI*2;
+      const phi= Math.acos(2*v-1);
+      const r= Math.cbrt(Math.random())*radius;
+
+      return {
+          x: offsetX+ r*Math.sin(phi)*Math.cos(theta),
+          y: offsetY+ r*Math.sin(phi)*Math.sin(theta),
+          z: offsetZ+ r*Math.cos(phi)
+      };
+  }
+
+  const clusters=[
+      {x:-180,y:120,z:0},
+      {x:180,y:120,z:0},
+      {x:-150,y:-120,z:0},
+      {x:150,y:-120,z:0},
+      {x:0,y:0,z:100}
+  ];
+
+  for(let i=0;i<particleCount;i++){
+      const i3=i*3;
+      const cluster= clusters[Math.floor(Math.random()*clusters.length)];
+      const frag= spherePoint(40, cluster.x, cluster.y, cluster.z);
+
+      fragmentedPositions[i3]=frag.x;
+      fragmentedPositions[i3+1]=frag.y;
+      fragmentedPositions[i3+2]=frag.z;
+
+      const unified= spherePoint(110, 0, 0, 0);
+
+      unifiedPositions[i3]=unified.x;
+      unifiedPositions[i3+1]=unified.y;
+      unifiedPositions[i3+2]=unified.z;
+
+      currentPositions[i3]=frag.x;
+      currentPositions[i3+1]=frag.y;
+      currentPositions[i3+2]=frag.z;
+  }
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.BufferAttribute(currentPositions, 3));
+
+  const particleCanvas = document.createElement("canvas");
+  particleCanvas.width=32;
+  particleCanvas.height=32;
+  const ctx= particleCanvas.getContext("2d");
+  const gradient= ctx.createRadialGradient(16,16,0, 16,16,16);
+  gradient.addColorStop(0, "rgba(255,107,0,1)");
+  gradient.addColorStop(1, "rgba(255,107,0,0)");
+  ctx.fillStyle=gradient;
+  ctx.fillRect(0,0,32,32);
+  const texture = new THREE.CanvasTexture(particleCanvas);
+
+  const material = new THREE.PointsMaterial({
+      size:2.8,
+      map:texture,
+      transparent:true,
+      depthWrite:false,
+      color:0xff6b00
+  });
+
   const particles = new THREE.Points(geometry, material);
   scene.add(particles);
-  
-  // Animation Loop
-  let baseRotationSpeed = 0.001;
-  let targetRotationSpeed = baseRotationSpeed;
-  
-  // Hover effect to speed up
-  container.addEventListener('mouseenter', () => targetRotationSpeed = 0.003);
-  container.addEventListener('mouseleave', () => targetRotationSpeed = baseRotationSpeed);
-  
-  // Stop animation if not in view
-  let isVisible = true;
-  const observer = new IntersectionObserver((entries) => {
-    isVisible = entries[0].isIntersecting;
+
+  const morphState={ progress:0 };
+
+  ScrollTrigger.create({
+      trigger:".ecosystem-section",
+      start:"top top",
+      end:"+=200%",
+      pin:true,
+      scrub:1,
+      onUpdate:(self)=>{
+          morphState.progress= self.progress;
+          gsap.to(".ecosystem-title", {
+              opacity: self.progress>0.7 ?1 :0,
+              duration:0.2
+          });
+      }
   });
-  observer.observe(container);
-  
-  // Pause on tab hidden
-  document.addEventListener("visibilitychange", () => {
-    isVisible = document.visibilityState === "visible";
-  });
-  
-  function animate() {
-    requestAnimationFrame(animate);
-    
-    if (!isVisible) return;
-    
-    // Smooth lerp speed
-    particles.rotation.y += (targetRotationSpeed - (particles.rotation.y - particles.userData.lastY || 0)) * 0.05;
-    particles.userData.lastY = particles.rotation.y;
-    
-    // Add simple continuous rotation
-    particles.rotation.y += targetRotationSpeed;
-    particles.rotation.x += targetRotationSpeed * 0.5;
-    
-    renderer.render(scene, camera);
+
+  const clock = new THREE.Clock();
+
+  function animate(){
+      requestAnimationFrame(animate);
+      const elapsed= clock.getElapsedTime();
+      const pos= geometry.attributes.position.array;
+      const p= morphState.progress;
+
+      for(let i=0;i<particleCount;i++){
+          const i3=i*3;
+          const noise= Math.sin(elapsed*2+i)*1.5;
+
+          pos[i3]= fragmentedPositions[i3] + (unifiedPositions[i3] - fragmentedPositions[i3])*p + noise;
+          pos[i3+1]= fragmentedPositions[i3+1] + (unifiedPositions[i3+1] - fragmentedPositions[i3+1])*p + noise;
+          pos[i3+2]= fragmentedPositions[i3+2] + (unifiedPositions[i3+2] - fragmentedPositions[i3+2])*p;
+      }
+      geometry.attributes.position.needsUpdate=true;
+      particles.rotation.y= elapsed*0.1;
+      particles.rotation.x= elapsed*0.05;
+      const scale= 1+(p*0.2);
+      particles.scale.set(scale, scale, scale);
+      renderer.render(scene, camera);
   }
-  
   animate();
-  
-  // Handle Resize
-  window.addEventListener('resize', () => {
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-    renderer.setSize(width, height);
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-  });
 }
 
-function initWaitlistForm() {
-  const form = document.getElementById('waitlist-form');
-  const successMsg = document.getElementById('waitlist-success');
+function initContactForm() {
+  // Multi-Select Logic
+  const multiSelect = document.getElementById('product-select');
+  const selectDropdown = document.querySelector('.select-dropdown');
+  const selectedPills = document.getElementById('selected-pills');
+  const checkboxes = document.querySelectorAll('.dropdown-item input[type="checkbox"]');
   
-  if(!form) return;
-  
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    form.style.display = 'none';
-    successMsg.classList.remove('hidden');
-  });
+  if(multiSelect) {
+    multiSelect.addEventListener('click', (e) => {
+      if(e.target.closest('.pill-remove') || e.target.type === 'checkbox') return;
+      multiSelect.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (e) => {
+      if(!multiSelect.contains(e.target)) {
+        multiSelect.classList.remove('active');
+      }
+    });
+
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', updatePills);
+    });
+
+    function updatePills() {
+      selectedPills.innerHTML = '';
+      let selectedCount = 0;
+      checkboxes.forEach(cb => {
+        if(cb.checked) {
+          selectedCount++;
+          const pill = document.createElement('div');
+          pill.className = 'pill';
+          pill.innerHTML = `${cb.value} <span class="pill-remove" data-val="${cb.value}">&times;</span>`;
+          selectedPills.appendChild(pill);
+        }
+      });
+      
+      if(selectedCount === 0) {
+        selectedPills.innerHTML = '<span class="placeholder">Choose modules...</span>';
+      }
+
+      // Handle pill removal
+      document.querySelectorAll('.pill-remove').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const val = e.target.getAttribute('data-val');
+          const checkbox = Array.from(checkboxes).find(c => c.value === val);
+          if(checkbox) {
+            checkbox.checked = false;
+            updatePills();
+          }
+        });
+      });
+    }
+  }
+
+  // Modal Logic
+  const bookBtn = document.getElementById('book-demo-btn');
+  const modal = document.getElementById('demo-modal');
+  const closeBtn = document.getElementById('close-demo');
+  const confirmBtn = document.getElementById('confirm-booking-btn');
+
+  if(bookBtn && modal) {
+    bookBtn.addEventListener('click', () => {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    // Close on overlay click
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Initialize Flatpickr
+    const dp = document.getElementById('datetime-picker');
+    if(dp && window.flatpickr) {
+      window.flatpickr(dp, {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        minDate: "today",
+      });
+    }
+
+    confirmBtn.addEventListener('click', () => {
+      if(dp.value) {
+        confirmBtn.innerHTML = "Booking Confirmed!";
+        confirmBtn.style.background = "#10B981"; // Success green
+        setTimeout(() => {
+          modal.classList.remove('active');
+          document.body.style.overflow = '';
+          confirmBtn.innerHTML = "Confirm Booking";
+          confirmBtn.style.background = "";
+          dp.value = '';
+        }, 1500);
+      } else {
+        alert("Please select a date and time.");
+      }
+    });
+  }
+
+  // Form Submission
+  const salesForm = document.getElementById('sales-form');
+  const submitBtn = document.querySelector('.submit-btn');
+  if(salesForm) {
+    salesForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = "Sending...";
+      setTimeout(() => {
+        submitBtn.innerHTML = "Inquiry Sent!";
+        submitBtn.style.background = "#10B981";
+        setTimeout(() => {
+          salesForm.reset();
+          checkboxes.forEach(cb => cb.checked = false);
+          if(typeof updatePills === 'function') updatePills();
+          submitBtn.innerHTML = originalText;
+          submitBtn.style.background = "";
+        }, 2000);
+      }, 1000);
+    });
+  }
 }
 
 function initGrainEffect() {
