@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulse360 | The Marketing Intelligence Suite</title>
+  <meta name="description" content="Five connected modules. One intelligent loop. Pulse360 is the unified marketing intelligence suite for enterprise teams.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+  <script type="module" src="main.js" defer></script>
+</head>
+<body>
+  <!-- Grain Overlay -->
+  <canvas id="grain-canvas"></canvas>
+
+  <!-- Custom Cursor -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- Sticky Nav -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#home" class="brand-logo">
+        <span class="logo-pulse">PULSE</span><span class="logo-360">360</span>
+      </a>
+      <div class="nav-links desktop-nav">
+        <a href="#platform" class="nav-link">Platform</a>
+        <a href="#modules" class="nav-link">Modules</a>
+        <a href="#waitlist" class="btn-primary-pill nav-cta">Get Early Access</a>
+      </div>
+      <button class="mobile-menu-btn" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Panel -->
+  <div class="mobile-menu-panel">
+    <a href="#platform" class="nav-link">Platform</a>
+    <a href="#modules" class="nav-link">Modules</a>
+    <a href="#waitlist" class="btn-primary-pill nav-cta">Get Early Access</a>
+  </div>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="section-hero">
+      <div class="hero-background-layer"></div>
+      <div class="blob-lavender-tl"></div>
+      <div class="blob-peach-br"></div>
+      
+      <div class="hero-product-container">
+        <div class="hero-product-mockup">
+          <div class="mockup-screen">
+            <div class="mockup-header"></div>
+            <div class="mockup-body">
+              <div class="mockup-chart"></div>
+              <div class="mockup-cards">
+                <div class="mockup-card"></div>
+                <div class="mockup-card"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-content">
+        <div class="eyebrow-pill hero-text-anim">Coming Soon</div>
+        <h1 class="hero-headline">
+          <span class="word hero-text-anim">The</span> <span class="word hero-text-anim">Marketing</span> <span class="word hero-text-anim">Intelligence</span> <span class="word hero-text-anim">Suite</span>
+        </h1>
+        <p class="hero-sub hero-text-anim">The future of enterprise marketing operations is here.<br>Experience a truly connected system.</p>
+        <a href="#waitlist" class="btn-primary-pill hero-cta hero-text-anim">Join the Waitlist</a>
+      </div>
+      
+      <div class="scroll-indicator hero-text-anim">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="platform" class="section-philosophy bg-offwhite">
+      <div class="philosophy-content">
+        <h2 class="philo-headline fade-up">Eliminate the Fragmentation</h2>
+        <p class="philo-sub fade-up delay-1">Stop using five disconnected tools. Experience a continuous marketing loop.</p>
+        <h3 class="philo-tag fade-up delay-2">The Pulse360 Ecosystem</h3>
+      </div>
+      <div class="particle-sphere-container fade-up delay-3">
+        <!-- Canvas injected here -->
+        <canvas id="sphere-canvas"></canvas>
+      </div>
+    </section>
+
+    <!-- Modules Anchor Section -->
+    <section id="modules" class="section-modules-anchor">
+      <div class="modules-anchor-content fade-up">
+        <div class="eyebrow-text">ONE SYSTEM. CONTINUOUS IMPROVEMENT.</div>
+        <h2 class="modules-headline">Five powerful modules connected by a shared intelligence layer.</h2>
+        <div class="modules-pills">
+          <a href="#brand-book" class="module-pill">Brand Book</a>
+          <a href="#pulseplan" class="module-pill">PulsePlan</a>
+          <a href="#pulsescout" class="module-pill">PulseScout</a>
+          <a href="#pulseengage" class="module-pill">PulseEngage</a>
+          <a href="#pulseshift" class="module-pill">PulseShift</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 01: Brand Book -->
+    <section id="brand-book" class="module-section layout-left">
+      <div class="module-container">
+        <div class="module-text fade-up">
+          <div class="module-eyebrow">MODULE 01</div>
+          <h2 class="module-name">Brand Book</h2>
+          <h3 class="module-tagline">"Your brand's single source of truth."</h3>
+          <p class="module-desc">Ensures brand strategy, tone, and guardrails are applied consistently across planning, engagement, and optimization. Every output, on-brand — always.</p>
+          <ul class="feature-list">
+            <li class="feature-item"><span class="check">✓</span> Brand voice and tone governance</li>
+            <li class="feature-item"><span class="check">✓</span> Guardrail templates for all channels</li>
+            <li class="feature-item"><span class="check">✓</span> Real-time compliance scoring</li>
+          </ul>
+          <a href="#brand-book-detail" class="btn-primary-pill module-cta">Explore Brand Book &rarr;</a>
+        </div>
+        <div class="module-visual fade-up delay-1">
+          <div class="visual-glow-peach"></div>
+          <div class="floating-card brand-book-card">
+            <div class="card-row logo-row">
+              <div class="logo-box"></div>
+              <div class="logo-text">PULSE360</div>
+            </div>
+            <div class="card-row color-swatches">
+              <div class="swatch orange"></div>
+              <div class="swatch purple"></div>
+              <div class="swatch black"></div>
+              <div class="swatch gray"></div>
+            </div>
+            <div class="card-row typo-sample">
+              <div class="clip-text">Aa Bb Cc</div>
+            </div>
+            <div class="tone-tag">Confident. Clear. Bold.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 02: PulsePlan -->
+    <section id="pulseplan" class="module-section layout-right bg-offwhite">
+      <div class="module-container">
+        <div class="module-visual fade-up">
+          <div class="floating-card pulseplan-card">
+            <div class="bar-chart-container">
+              <div class="target-line"></div>
+              <div class="bar-col"><div class="bar-val" data-val="38">0%</div><div class="bar-fill delay-1" style="--h: 70%;"></div><div class="bar-label">Social</div></div>
+              <div class="bar-col"><div class="bar-val" data-val="27">0%</div><div class="bar-fill delay-2" style="--h: 50%;"></div><div class="bar-label">Search</div></div>
+              <div class="bar-col"><div class="bar-val" data-val="15">0%</div><div class="bar-fill delay-3" style="--h: 30%;"></div><div class="bar-label">Display</div></div>
+              <div class="bar-col"><div class="bar-val" data-val="12">0%</div><div class="bar-fill delay-4" style="--h: 24%;"></div><div class="bar-label">Email</div></div>
+              <div class="bar-col"><div class="bar-val" data-val="8">0%</div><div class="bar-fill delay-5" style="--h: 16%;"></div><div class="bar-label">Events</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="module-text fade-up delay-1">
+          <div class="module-eyebrow">MODULE 02</div>
+          <h2 class="module-name">PulsePlan</h2>
+          <h3 class="module-tagline">"Confident investment. Clear trade-offs."</h3>
+          <p class="module-desc">Translates market intelligence into confident budget decisions, channel prioritization, and strategic trade-off analysis. Plan smarter, not harder.</p>
+          <ul class="feature-list">
+            <li class="feature-item"><span class="check">✓</span> Budget allocation modeling</li>
+            <li class="feature-item"><span class="check">✓</span> Scenario planning with trade-off analysis</li>
+            <li class="feature-item"><span class="check">✓</span> Channel ROI forecasting</li>
+          </ul>
+          <a href="#pulseplan-detail" class="btn-primary-pill module-cta">Explore PulsePlan &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 03: PulseScout -->
+    <section id="pulsescout" class="module-section layout-left">
+      <div class="module-container">
+        <div class="module-text fade-up">
+          <div class="module-eyebrow">MODULE 03</div>
+          <h2 class="module-name">PulseScout</h2>
+          <h3 class="module-tagline">"See the market before it moves."</h3>
+          <p class="module-desc">Monitors competitor signals, trend shifts, and market movements in real time. Know what's happening before your competition acts on it.</p>
+          <ul class="feature-list">
+            <li class="feature-item"><span class="check">✓</span> Competitor signal tracking</li>
+            <li class="feature-item"><span class="check">✓</span> Trend velocity detection</li>
+            <li class="feature-item"><span class="check">✓</span> Market shift alerts</li>
+          </ul>
+          <a href="#pulsescout-detail" class="btn-primary-pill module-cta">Explore PulseScout &rarr;</a>
+        </div>
+        <div class="module-visual fade-up delay-1">
+          <div class="floating-card radar-card">
+            <svg id="radar-svg" viewBox="-100 -100 200 200" width="300" height="300">
+              <circle cx="0" cy="0" r="80" class="radar-ring" />
+              <circle cx="0" cy="0" r="50" class="radar-ring" />
+              <circle cx="0" cy="0" r="20" class="radar-ring" />
+              
+              <line x1="0" y1="-90" x2="0" y2="90" class="radar-axis" />
+              <line x1="-78" y1="-45" x2="78" y2="45" class="radar-axis" />
+              <line x1="-78" y1="45" x2="78" y2="-45" class="radar-axis" />
+              
+              <text x="0" y="-95" class="radar-label" text-anchor="middle">Trends</text>
+              <text x="85" y="-50" class="radar-label" text-anchor="start">Competitors</text>
+              <text x="85" y="55" class="radar-label" text-anchor="start">Sentiment</text>
+              <text x="0" y="100" class="radar-label" text-anchor="middle">Volume</text>
+              <text x="-85" y="55" class="radar-label" text-anchor="end">Velocity</text>
+              <text x="-85" y="-50" class="radar-label" text-anchor="end">Share</text>
+              
+              <polygon points="0,-60 50,-30 40,40 0,70 -40,40 -50,-30" class="radar-poly" />
+            </svg>
+            <div class="radar-sweep"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 04: PulseEngage -->
+    <section id="pulseengage" class="module-section layout-right bg-offwhite">
+      <div class="module-container">
+        <div class="module-visual fade-up">
+          <div class="floating-card engage-card">
+            <svg viewBox="0 0 400 300" width="100%" height="100%" class="engage-svg">
+              <defs>
+                <linearGradient id="eng-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#7C3AED"/>
+                  <stop offset="100%" stop-color="#F97316"/>
+                </linearGradient>
+              </defs>
+              
+              <!-- Paths -->
+              <path id="path1" d="M 200,60 C 200,120 70,120 70,180" class="eng-path" />
+              <path id="path2" d="M 200,60 C 200,120 150,120 150,180" class="eng-path" />
+              <path id="path3" d="M 200,60 C 200,120 250,120 250,180" class="eng-path" />
+              <path id="path4" d="M 200,60 C 200,120 330,120 330,180" class="eng-path" />
+              
+              <!-- Campaign Node -->
+              <rect x="140" y="20" width="120" height="40" rx="20" fill="url(#eng-grad)" />
+              <text x="200" y="45" fill="white" font-family="Syne" font-size="14" font-weight="700" text-anchor="middle">Campaign</text>
+              
+              <!-- Channel Nodes -->
+              <g class="chan-node" transform="translate(30,180)">
+                <rect width="80" height="30" rx="8" class="chan-rect" />
+                <text x="40" y="20" class="chan-text" text-anchor="middle">Email</text>
+                <text x="40" y="50" class="chan-score" text-anchor="middle">↑ 24%</text>
+              </g>
+              <g class="chan-node" transform="translate(110,180)">
+                <rect width="80" height="30" rx="8" class="chan-rect" />
+                <text x="40" y="20" class="chan-text" text-anchor="middle">Social</text>
+                <text x="40" y="50" class="chan-score" text-anchor="middle">↑ 18%</text>
+              </g>
+              <g class="chan-node" transform="translate(190,180)">
+                <rect width="80" height="30" rx="8" class="chan-rect" />
+                <text x="40" y="20" class="chan-text" text-anchor="middle">Display</text>
+                <text x="40" y="50" class="chan-score" text-anchor="middle">↑ 12%</text>
+              </g>
+              <g class="chan-node" transform="translate(270,180)">
+                <rect width="80" height="30" rx="8" class="chan-rect" />
+                <text x="40" y="20" class="chan-text" text-anchor="middle">Events</text>
+                <text x="40" y="50" class="chan-score" text-anchor="middle">↑ 31%</text>
+              </g>
+              
+              <!-- Dots -->
+              <circle r="4" fill="#F97316"><animateMotion dur="2s" repeatCount="indefinite" begin="0s"><mpath href="#path1"/></animateMotion></circle>
+              <circle r="4" fill="#F97316"><animateMotion dur="2s" repeatCount="indefinite" begin="0.5s"><mpath href="#path2"/></animateMotion></circle>
+              <circle r="4" fill="#F97316"><animateMotion dur="2s" repeatCount="indefinite" begin="1s"><mpath href="#path3"/></animateMotion></circle>
+              <circle r="4" fill="#F97316"><animateMotion dur="2s" repeatCount="indefinite" begin="1.5s"><mpath href="#path4"/></animateMotion></circle>
+            </svg>
+          </div>
+        </div>
+        <div class="module-text fade-up delay-1">
+          <div class="module-eyebrow">MODULE 04</div>
+          <h2 class="module-name">PulseEngage</h2>
+          <h3 class="module-tagline">"Exposure converted to intention."</h3>
+          <p class="module-desc">Orchestrates structured, intentional engagement across every channel — converting attention into pipeline through coordinated, intelligent content delivery.</p>
+          <ul class="feature-list">
+            <li class="feature-item"><span class="check">✓</span> Multi-channel orchestration</li>
+            <li class="feature-item"><span class="check">✓</span> Content sequencing engine</li>
+            <li class="feature-item"><span class="check">✓</span> Engagement scoring per touchpoint</li>
+          </ul>
+          <a href="#pulseengage-detail" class="btn-primary-pill module-cta">Explore PulseEngage &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 05: PulseShift -->
+    <section id="pulseshift" class="module-section layout-left">
+      <div class="module-container">
+        <div class="module-text fade-up">
+          <div class="module-eyebrow">MODULE 05</div>
+          <h2 class="module-name">PulseShift</h2>
+          <h3 class="module-tagline">"Measure impact. Feed learning. Evolve."</h3>
+          <p class="module-desc">Measures the real-time impact of every campaign and feeds structured learnings back into planning and strategy. The loop never stops improving.</p>
+          <ul class="feature-list">
+            <li class="feature-item"><span class="check">✓</span> Live impact measurement</li>
+            <li class="feature-item"><span class="check">✓</span> Learning feedback loop to PulsePlan</li>
+            <li class="feature-item"><span class="check">✓</span> Attribution modeling across channels</li>
+          </ul>
+          <a href="#pulseshift-detail" class="btn-primary-pill module-cta">Explore PulseShift &rarr;</a>
+        </div>
+        <div class="module-visual fade-up delay-1">
+          <div class="floating-card shift-card">
+            <svg viewBox="0 0 300 300" width="100%" height="100%" class="shift-svg">
+              <defs>
+                <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#F97316" />
+                </marker>
+              </defs>
+              <!-- Center Text -->
+              <text x="150" y="155" class="center-pulse" text-anchor="middle" font-family="Syne" font-size="18" font-weight="700">
+                <tspan fill="#111111">PULSE</tspan><tspan fill="#F97316">360</tspan>
+              </text>
+              
+              <!-- Arcs -->
+              <path id="loop1" d="M 150,45 C 220,45 250,90 250,113" class="loop-path" marker-end="url(#arrow)" />
+              <path id="loop2" d="M 250,113 C 250,180 230,231 170,231" class="loop-path" marker-end="url(#arrow)" />
+              <path id="loop3" d="M 170,231 C 110,231 50,231 50,231" class="loop-path" marker-end="url(#arrow)" />
+              <path id="loop4" d="M 50,231 C 50,180 30,113 50,113" class="loop-path" marker-end="url(#arrow)" />
+              <path id="loop5" d="M 50,113 C 50,90 80,45 150,45" class="loop-path" marker-end="url(#arrow)" />
+              
+              <!-- Nodes -->
+              <g transform="translate(100,15)"><rect width="100" height="30" rx="15" class="loop-node" /><text x="50" y="20" class="loop-text" text-anchor="middle">Brand Book</text></g>
+              <g transform="translate(214,98)"><rect width="100" height="30" rx="15" class="loop-node" /><text x="50" y="20" class="loop-text" text-anchor="middle">PulsePlan</text></g>
+              <g transform="translate(170,231)"><rect width="100" height="30" rx="15" class="loop-node" /><text x="50" y="20" class="loop-text" text-anchor="middle">PulseScout</text></g>
+              <g transform="translate(30,231)"><rect width="100" height="30" rx="15" class="loop-node" /><text x="50" y="20" class="loop-text" text-anchor="middle">PulseEngage</text></g>
+              <g transform="translate(-14,98)"><rect width="100" height="30" rx="15" class="loop-node shift-node-active" /><text x="50" y="20" class="loop-text shift-text-active" text-anchor="middle">PulseShift</text></g>
+
+              <!-- Dots traveling along paths -->
+              <circle r="4" fill="#F97316"><animateMotion dur="2.5s" repeatCount="indefinite"><mpath href="#loop1"/></animateMotion></circle>
+              <circle r="4" fill="#F97316"><animateMotion dur="2.5s" repeatCount="indefinite"><mpath href="#loop2"/></animateMotion></circle>
+              <circle r="4" fill="#F97316"><animateMotion dur="2.5s" repeatCount="indefinite"><mpath href="#loop3"/></animateMotion></circle>
+              <circle r="4" fill="#F97316"><animateMotion dur="2.5s" repeatCount="indefinite"><mpath href="#loop4"/></animateMotion></circle>
+              <circle r="4" fill="#F97316"><animateMotion dur="2.5s" repeatCount="indefinite"><mpath href="#loop5"/></animateMotion></circle>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Pulse360 / Values -->
+    <section id="why" class="section-values">
+      <div class="values-header fade-up">
+        <div class="eyebrow-text">WHY PULSE360</div>
+        <h2 class="values-headline">Built for ambition.</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card fade-up delay-1">
+          <div class="value-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2"><path d="M12 22C12 22 12 14 12 10C12 6 15 2 15 2C15 2 18 6 18 10C18 14 12 22 12 22Z"/><path d="M12 22C12 22 12 14 12 10C12 6 9 2 9 2C9 2 6 6 6 10C6 14 12 22 12 22Z"/></svg></div>
+          <div class="value-num">01</div>
+          <h3 class="value-title">Sustainable Growth</h3>
+          <p class="value-body">Scale your marketing efforts without scaling your complexity. Efficiency through consolidated intelligence.</p>
+        </div>
+        <div class="value-card fade-up delay-2">
+          <div class="value-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
+          <div class="value-num">02</div>
+          <h3 class="value-title">Empowered Decisions</h3>
+          <p class="value-body">Democratize data across your organization. Give every team member the clarity to act decisively.</p>
+        </div>
+        <div class="value-card fade-up delay-3">
+          <div class="value-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg></div>
+          <div class="value-num">03</div>
+          <h3 class="value-title">Continuous Innovation</h3>
+          <p class="value-body">Break free from tool fatigue. A unified platform designed to evolve with the speed of global markets.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Metrics / Results -->
+    <section id="metrics" class="section-metrics">
+      <div class="metrics-container">
+        <div class="metric-item fade-up">
+          <div class="metric-icon">🚀</div>
+          <div class="metric-number" data-target="500" data-suffix="K+">0</div>
+          <div class="metric-label">Active Users</div>
+          <p class="metric-desc">Powering the fastest growing enterprise teams globally.</p>
+        </div>
+        <div class="metric-item fade-up delay-1">
+          <div class="metric-icon">⚡</div>
+          <div class="metric-number" data-target="98" data-suffix="%">0</div>
+          <div class="metric-label">Adoption Rate</div>
+          <p class="metric-desc">Seamless integration means your team actually uses it.</p>
+        </div>
+        <div class="metric-item fade-up delay-2">
+          <div class="metric-icon">📈</div>
+          <div class="metric-number" data-target="12" data-suffix="x">0</div>
+          <div class="metric-label">ROI Multiplier</div>
+          <p class="metric-desc">Average return on investment within the first 6 months.</p>
+        </div>
+        <div class="metric-item fade-up delay-3">
+          <div class="metric-icon">⭐</div>
+          <div class="metric-number" data-target="4.8" data-suffix="/5" data-decimal="true">0</div>
+          <div class="metric-label">Customer Rating</div>
+          <p class="metric-desc">Consistently rated as the top platform in its category.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Waitlist / CTA Section -->
+    <section id="waitlist" class="section-waitlist">
+      <div class="blob-peach-tr"></div>
+      <div class="blob-lavender-bl"></div>
+      
+      <div class="waitlist-content fade-up">
+        <div class="eyebrow-text">EARLY ACCESS</div>
+        <h2 class="waitlist-headline">Ready to transform your operations?</h2>
+        <p class="waitlist-sub">We are launching soon. Secure your spot to be among the first to experience the unified suite.</p>
+        
+        <form id="waitlist-form" class="waitlist-form fade-up delay-1">
+          <input type="email" class="email-input" placeholder="Enter your email" required aria-label="Email Address">
+          <button type="submit" class="btn-primary-pill">Request Access &rarr;</button>
+        </form>
+        <div id="waitlist-success" class="waitlist-success hidden">
+          <span class="success-icon">✓</span> You're on the list! We'll be in touch soon.
+        </div>
+        
+        <p class="social-proof fade-up delay-2">Join 500+ marketing leaders already on the waitlist.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col brand-col">
+        <div class="brand-logo"><span class="logo-pulse">PULSE</span><span class="logo-360">360</span></div>
+        <p class="footer-tagline">One system. Continuous improvement.</p>
+        <div class="social-icons">
+          <!-- LinkedIn -->
+          <a href="#" aria-label="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+          <!-- Twitter/X -->
+          <a href="#" aria-label="Twitter"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <!-- YouTube -->
+          <a href="#" aria-label="YouTube"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Modules</h4>
+        <a href="#brand-book">Brand Book</a>
+        <a href="#pulseplan">PulsePlan</a>
+        <a href="#pulsescout">PulseScout</a>
+        <a href="#pulseengage">PulseEngage</a>
+        <a href="#pulseshift">PulseShift</a>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Company</h4>
+        <a href="#">About Us</a>
+        <a href="#">Careers</a>
+        <a href="#">Press</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms & Conditions</a>
+        <a href="#">Cookie Settings</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="copyright">&copy; 2026 Pulse360. All rights reserved.</div>
+      <div class="made-with">Made with intelligence.</div>
+    </div>
+  </footer>
+</body>
+</html>
